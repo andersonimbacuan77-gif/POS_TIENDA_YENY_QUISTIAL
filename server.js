@@ -678,6 +678,11 @@ app.get('/', (req, res) => {
 
 
 // Iniciamos el servidor
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+const server = app.listen(PORT, '0.0.0.0', () => {
+    console.log(`✅ Servidor corriendo en el puerto ${PORT}`);
 });
+
+// Configuraciones recomendadas por Render para evitar desconexiones intermitentes
+server.keepAliveTimeout = 120000;
+server.headersTimeout = 120500;
+

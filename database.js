@@ -3,9 +3,13 @@ require('dotenv').config();
 
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/sisconted";
 
-mongoose.connect(MONGO_URI)
+mongoose.connect(MONGO_URI, {
+    serverSelectionTimeoutMS: 5000, // Tiempo máximo para seleccionar el servidor (5s)
+    socketTimeoutMS: 45000,         // Tiempo máximo de inactividad del socket (45s)
+})
   .then(() => console.log('✅ Conectado a MongoDB Atlas'))
   .catch(err => console.error('❌ Error conectando a MongoDB Atlas:', err));
+
 
 // Esquemas flexibles (strict: false) para aceptar datos dinámicamente.
 // Definir _id como String garantiza compatibilidad con IDs pasados (timestamps largos).
